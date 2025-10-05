@@ -1,5 +1,4 @@
-%%sql
--- Populación de las tablas
+
 INSERT INTO Socios (id_socio, nombre, direccion)
 VALUES
 (1, 'Juan Pérez', 'Calle Mayor 1, Madrid'),
