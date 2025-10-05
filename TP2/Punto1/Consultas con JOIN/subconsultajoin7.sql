@@ -1,0 +1,3 @@
+
+SELECT patron_nombre, patron_direccion, direccion, Socios.nombre, Barcos.matricula FROM Socios,Barcos,Salidas
+					WHERE Barcos.id_socio = Socios.id_socio AND Barcos.matricula = Salidas.matricula AND direccion LIKE "%Barcelona%";
