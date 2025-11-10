@@ -1,0 +1,372 @@
+INSERT INTO Clientes (dni, apellido, nombre) VALUES
+(20345678, 'Pérez', 'Carlos'),
+(21456789, 'Gómez', 'Ana'),
+(22567890, 'Torres', 'Luis'),
+(23678901, 'Fernández', 'Carla'),
+(24789012, 'Ramos', 'Sofía'),
+(25890123, 'Alvarez', 'Diego'),
+(26901234, 'Martínez', 'Lucía'),
+(27912345, 'García', 'Mariano');
+
+INSERT INTO Cuentas (numero_cuenta, numero_cliente, saldo) VALUES
+(1001, 1, 1500.00),
+(1002, 2, 3200.00),
+(1003, 3, 800.00),
+(1004, 4, 5000.00),
+(1005, 5, 2500.00),
+(1006, 6, 1200.00),
+(1007, 7, 950.00),
+(1008, 8, 4000.00),
+(1009, 1, 700.00),
+(1010, 5, 1500.00);
+
+INSERT INTO Movimientos (numero_cuenta, fecha, tipo, importe) VALUES
+(1001, '2025-01-05', 'CREDITO', 500.00),
+(1001, '2025-01-10', 'DEBITO', 200.00),
+(1002, '2025-01-12', 'CREDITO', 1000.00),
+(1003, '2025-01-15', 'DEBITO', 100.00),
+(1004, '2025-02-01', 'CREDITO', 1500.00),
+(1004, '2025-02-10', 'DEBITO', 300.00),
+(1005, '2025-02-05', 'CREDITO', 700.00),
+(1006, '2025-02-15', 'DEBITO', 100.00),
+(1007, '2025-03-01', 'CREDITO', 250.00),
+(1008, '2025-03-02', 'DEBITO', 500.00),
+(1009, '2025-03-10', 'CREDITO', 200.00),
+(1010, '2025-03-12', 'DEBITO', 150.00),
+(1002, '2025-03-15', 'DEBITO', 400.00),
+(1005, '2025-03-16', 'CREDITO', 300.00),
+(1008, '2025-10-20', 'CREDITO', 600.00),
+(1002, '2025-10-21', 'CREDITO', 1000),
+(1002, '2025-10-21', 'DEBITO', 900),
+(1001, '2025-10-05', 'CREDITO', 500.00),
+(1001, '2025-10-10', 'DEBITO', 200.00),
+(1002, '2025-10-12', 'CREDITO', 1000.00),
+(1003, '2025-10-15', 'DEBITO', 100.00),
+(1004, '2025-10-01', 'CREDITO', 1500.00),
+(1004, '2025-10-10', 'DEBITO', 300.00),
+(1005, '2025-10-05', 'CREDITO', 700.00),
+(1006, '2025-10-15', 'DEBITO', 100.00),
+(1007, '2025-10-01', 'CREDITO', 250.00),
+(1008, '2025-10-02', 'DEBITO', 500.00),
+(1009, '2025-10-10', 'CREDITO', 200.00),
+(1010, '2025-10-12', 'DEBITO', 150.00),
+(1002, '2025-10-15', 'DEBITO', 400.00),
+(1005, '2025-10-16', 'CREDITO', 300.00),
+(1008, '2025-10-20', 'CREDITO', 600.00),
+(1002, '2025-10-21', 'CREDITO', 3000),
+(1002, '2025-10-21', 'DEBITO', 1000);
+
+INSERT INTO historial_movimientos (numero_cuenta, numero_movimiento, saldo_anterior, saldo_actual) VALUES
+(1001, 1, 1500.00, 2000.00),
+(1001, 2, 2000.00, 1800.00),
+(1002, 3, 3200.00, 4200.00),
+(1003, 4, 800.00, 700.00),
+(1004, 5, 5000.00, 6500.00),
+(1004, 6, 6500.00, 6200.00),
+(1005, 7, 2500.00, 3200.00),
+(1006, 8, 1200.00, 1100.00),
+(1007, 9, 950.00, 1200.00),
+(1008, 10, 4000.00, 3500.00),
+(1009, 11, 700.00, 900.00),
+(1010, 12, 1500.00, 1350.00),
+(1002, 13, 4200.00, 3800.00),
+(1005, 14, 3200.00, 3500.00),
+(1008, 15, 3500.00, 4100.00),
+(1002, 16, 3800.00, 4800.00),
+(1002, 17, 4800.00, 3900.00),
+(1001, 18, 1800.00, 2300.00),
+(1001, 19, 2300.00, 2100.00),
+(1002, 20, 3900.00, 4900.00),
+(1003, 21, 700.00, 600.00),
+(1004, 22, 6200.00, 7700.00),
+(1004, 23, 7700.00, 7400.00),
+(1005, 24, 3500.00, 4200.00),
+(1006, 25, 1100.00, 1000.00),
+(1007, 26, 1200.00, 1450.00),
+(1008, 27, 4100.00, 3600.00),
+(1009, 28, 900.00, 1100.00),
+(1010, 29, 1350.00, 1200.00),
+(1002, 30, 4900.00, 4500.00),
+(1005, 31, 4200.00, 4500.00),
+(1008, 32, 3600.00, 4200.00),
+(1002, 33, 4500.00, 7500.00),
+(1002, 34, 7500.00, 6500.00);
+CREATE TABLE clientes(
+    numero_cliente INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    dni INT NOT NULL,
+    apellido VARCHAR(60) NOT NULL,
+    nombre VARCHAR(60) NOT NULL
+);
+
+CREATE TABLE cuentas(
+    numero_cuenta INT PRIMARY KEY,
+    numero_cliente INT NOT NULL,
+    saldo DECIMAL(10,2) NOT NULL,
+    FOREIGN KEY (numero_cliente) REFERENCES clientes(numero_cliente)
+);
+
+CREATE TABLE movimientos(
+    numero_movimiento INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    numero_cuenta INT NOT NULL,
+    fecha DATE NOT NULL,
+    tipo ENUM('CREDITO','DEBITO') NOT NULL,
+    importe DECIMAL(10,2) NOT NULL,
+    FOREIGN KEY (numero_cuenta) REFERENCES cuentas(numero_cuenta)
+);
+
+CREATE TABLE historial_movimientos(
+    id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    numero_cuenta INT NOT NULL,
+    numero_movimiento INT NOT NULL,
+    saldo_anterior DECIMAL(10,2) NOT NULL,
+    saldo_actual DECIMAL(10,2) NOT NULL,
+    FOREIGN KEY (numero_cuenta) REFERENCES cuentas(numero_cuenta),
+    FOREIGN KEY (numero_movimiento) REFERENCES movimientos(numero_movimiento)
+);
+
+DROP DATABASE IF EXISTS banco;
+CREATE DATABASE banco;
+USE banco;
+
+
+DELIMITER $$
+create procedure VerCuentas()
+begin
+	select	
+		cuentas.numero_cuenta,
+        clientes.apellido,
+        clientes.nombre,
+        cuentas.saldo AS saldo_actual
+	from cuentas
+    join clientes ON cuentas.numero_cliente = clientes.numero_cliente;
+end $$
+
+DELIMITER ; 
+
+call VerCuentas()
+DELIMITER $$
+CREATE PROCEDURE CuentasConSaldoMayorQue(IN limite decimal(10,2))
+begin
+	select
+		cuentas.numero_cuenta,
+        clientes.apellido,
+        clientes.nombre,
+        cuentas.saldo AS saldo_actual
+	from cuentas
+    join clientes ON cuentas.numero_cliente = clientes.numero_cliente 
+    where cuentas.saldo > limite;
+    
+    end $$
+    
+    delimiter ;
+    
+
+DELIMITER $$
+create procedure TotalMovimientosDelMes(IN cuenta INT, OUT total decimal(10,2))
+begin
+	select 
+		SUM(case
+				When tipo = 'CREDITO' then importe
+                when tipo = 'DEBITO' then -importe
+			END)
+		into total
+        from movimientos
+        where numero_cuenta = cuenta
+			and month(fecha) = MONTH (CURDATE())
+			and year(fecha) = year(curdate());
+            
+            
+end $$
+    
+    delimiter ;
+delimiter $$
+create procedure Depositar(IN cuenta INT, IN monto decimal(10,2))
+begin
+	UPDATE cuentas
+    set saldo = saldo + monto
+    where numero_cuenta = cuenta;
+    
+    select numero_cuenta, saldo AS saldo_actual
+    from cuentas
+    where numero_cuenta = cuenta;
+end $$
+
+delimiter ;
+
+
+
+
+    
+    
+		
+use banco;
+DELIMITER $$
+
+CREATE PROCEDURE Extraer(IN cuenta INT, IN monto DECIMAL(10,2))
+BEGIN
+    DECLARE saldo_actual DECIMAL(10,2);
+
+    SELECT saldo INTO saldo_actual
+    FROM cuentas
+    WHERE numero_cuenta = cuenta;
+
+    IF saldo_actual >= monto THEN
+        UPDATE cuentas
+        SET saldo = saldo - monto
+        WHERE numero_cuenta = cuenta;
+
+        SELECT numero_cuenta, saldo AS saldo_actual
+        FROM cuentas
+        WHERE numero_cuenta = cuenta;
+    ELSE
+        SELECT 'Saldo insuficiente' AS mensaje;
+    END IF;
+END $$
+
+DELIMITER ;
+
+DELIMITER $$
+
+CREATE TRIGGER trg_actualizar_saldo
+AFTER INSERT ON movimientos
+FOR EACH ROW
+BEGIN
+    IF NEW.tipo = 'DEPOSITO' THEN
+        UPDATE cuentas
+        SET saldo = saldo + NEW.importe
+        WHERE numero_cuenta = NEW.numero_cuenta;
+    ELSEIF NEW.tipo = 'EXTRACCION' THEN
+        UPDATE cuentas
+        SET saldo = saldo - NEW.importe
+        WHERE numero_cuenta = NEW.numero_cuenta;
+    END IF;
+END $$
+
+DELIMITER ;
+
+use banco;
+
+DELIMITER $$
+
+DROP TRIGGER IF EXISTS trg_actualizar_saldo $$
+
+CREATE TRIGGER trg_actualizar_saldo
+AFTER INSERT ON movimientos
+FOR EACH ROW
+BEGIN
+    DECLARE saldo_anterior DECIMAL(10,2);
+    DECLARE saldo_actual DECIMAL(10,2);
+
+    -- Guardamos el saldo anterior
+    SELECT saldo INTO saldo_anterior
+    FROM cuentas
+    WHERE numero_cuenta = NEW.numero_cuenta;
+
+    IF NEW.tipo = 'DEPOSITO' THEN
+        UPDATE cuentas
+        SET saldo = saldo + NEW.importe
+        WHERE numero_cuenta = NEW.numero_cuenta;
+    ELSEIF NEW.tipo = 'EXTRACCION' THEN
+        UPDATE cuentas
+        SET saldo = saldo - NEW.importe
+        WHERE numero_cuenta = NEW.numero_cuenta;
+    END IF;
+
+    SELECT saldo INTO saldo_actual
+    FROM cuentas
+    WHERE numero_cuenta = NEW.numero_cuenta;
+
+    INSERT INTO historial_movimientos (numero_cuenta, numero_movimiento, saldo_anterior, saldo_actual)
+    VALUES (NEW.numero_cuenta, NEW.numero_movimiento, saldo_anterior, saldo_actual);
+END $$
+
+DELIMITER ;
+
+USE banco;
+
+DELIMITER $$
+
+DROP PROCEDURE IF EXISTS TotalMovimientosDelMes $$
+
+CREATE PROCEDURE TotalMovimientosDelMes(
+    IN cuenta INT,
+    OUT total DECIMAL(10,2)
+)
+BEGIN
+    
+    DECLARE v_tipo VARCHAR(20);
+    DECLARE v_importe DECIMAL(10,2);
+    DECLARE fin BOOLEAN DEFAULT FALSE;
+
+    DECLARE cur_mov CURSOR FOR
+        SELECT tipo, importe
+        FROM movimientos
+        WHERE numero_cuenta = cuenta
+          AND MONTH(fecha) = MONTH(CURDATE())
+          AND YEAR(fecha) = YEAR(CURDATE());
+
+    DECLARE CONTINUE HANDLER FOR NOT FOUND SET fin = TRUE;
+
+    SET total = 0;
+
+    OPEN cur_mov;
+
+    leer_loop: LOOP
+        FETCH cur_mov INTO v_tipo, v_importe;
+        IF fin THEN
+            LEAVE leer_loop;
+        END IF;
+
+        IF v_tipo = 'DEPOSITO' THEN
+            SET total = total + v_importe;
+        ELSEIF v_tipo = 'EXTRACCION' THEN
+            SET total = total - v_importe;
+        END IF;
+    END LOOP;
+
+    CLOSE cur_mov;
+END $$
+
+DELIMITER ;
+
+USE banco;
+
+DELIMITER $$
+
+DROP PROCEDURE IF EXISTS AplicarInteres $$
+
+CREATE PROCEDURE AplicarInteres(
+    IN porcentaje DECIMAL(5,2),
+    IN saldo_minimo DECIMAL(10,2)
+)
+BEGIN
+    
+    DECLARE v_numero_cuenta INT;
+    DECLARE v_saldo_actual DECIMAL(10,2);
+    DECLARE fin BOOLEAN DEFAULT FALSE;
+
+    DECLARE cur_cuentas CURSOR FOR
+        SELECT numero_cuenta, saldo
+        FROM cuentas
+        WHERE saldo > saldo_minimo;
+
+    DECLARE CONTINUE HANDLER FOR NOT FOUND SET fin = TRUE;
+
+    OPEN cur_cuentas;
+
+    aplicar_loop: LOOP
+        FETCH cur_cuentas INTO v_numero_cuenta, v_saldo_actual;
+        IF fin THEN
+            LEAVE aplicar_loop;
+        END IF;
+
+        UPDATE cuentas
+        SET saldo = saldo + (v_saldo_actual * (porcentaje / 100))
+        WHERE numero_cuenta = v_numero_cuenta;
+    END LOOP;
+
+    CLOSE cur_cuentas;
+END $$
+
+DELIMITER ;
+
